@@ -1,0 +1,105 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "dftestdrusya"
+		},
+		"ls_fileSHIR_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_fileSHIR'"
+		},
+		"ls_sqldatabase_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'ls_sqldatabase'"
+		},
+		"Ls_adls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsdrusya.dfs.core.windows.net/"
+		},
+		"ls_fileSHIR_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "C:\\Users\\vmdrusya123\\Downloads\\adfsourcefiles"
+		},
+		"ls_fileSHIR_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "vmdrusya123"
+		},
+		"ls_keyvaultadls_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://keyvaultdrusyanew.vault.azure.net/"
+		},
+		"ls_sqldatabase_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sqlserverdrusya.database.windows.net"
+		},
+		"ls_sqldatabase_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "dbdrusya"
+		},
+		"ls_sqldatabase_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "dbdrusya"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "dftestdrusya_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ls_sqldatabase_password": {
+						"value": "[parameters('ls_sqldatabase_password')]"
+					},
+					"ls_fileSHIR_password": {
+						"value": "[parameters('ls_fileSHIR_password')]"
+					},
+					"ls_keyvaultadls_properties_typeProperties_baseUrl": {
+						"value": "[parameters('ls_keyvaultadls_properties_typeProperties_baseUrl')]"
+					},
+					"ls_sqldatabase_properties_typeProperties_server": {
+						"value": "[parameters('ls_sqldatabase_properties_typeProperties_server')]"
+					},
+					"ls_sqldatabase_properties_typeProperties_database": {
+						"value": "[parameters('ls_sqldatabase_properties_typeProperties_database')]"
+					},
+					"ls_sqldatabase_properties_typeProperties_userName": {
+						"value": "[parameters('ls_sqldatabase_properties_typeProperties_userName')]"
+					},
+					"Ls_adls_properties_typeProperties_url": {
+						"value": "[parameters('Ls_adls_properties_typeProperties_url')]"
+					},
+					"ls_fileSHIR_properties_typeProperties_host": {
+						"value": "[parameters('ls_fileSHIR_properties_typeProperties_host')]"
+					},
+					"ls_fileSHIR_properties_typeProperties_userId": {
+						"value": "[parameters('ls_fileSHIR_properties_typeProperties_userId')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
