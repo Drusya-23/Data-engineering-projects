@@ -1516,7 +1516,7 @@
 						"          UPDATEDBY = src_UPDATEDBY,",
 						"          UPDATEDDATE = src_UPDATEDDATE,",
 						"          ISACTIVE = src_isactive,",
-						"          HASHKEY = src_HASHKEY",
+						"          HASHKEY",
 						"     )) ~> sink1",
 						"derivedColumn3 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
