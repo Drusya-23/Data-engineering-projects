@@ -138,7 +138,7 @@
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
-				"          transaction_id = src_transaction_id,",
+				"          transaction_id,",
 				"          UPDATEDBY = src_UPDATEDBY,",
 				"          UPDATEDDATE = src_UPDATEDDATE,",
 				"          ISACTIVE = src_isactive,",
