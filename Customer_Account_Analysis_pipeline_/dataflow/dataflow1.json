@@ -1,0 +1,360 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "Ls_adls",
+						"type": "LinkedServiceReference"
+					},
+					"name": "source1"
+				},
+				{
+					"linkedService": {
+						"referenceName": "Ls_adls",
+						"type": "LinkedServiceReference"
+					},
+					"name": "source2"
+				},
+				{
+					"linkedService": {
+						"referenceName": "Ls_adls",
+						"type": "LinkedServiceReference"
+					},
+					"name": "source3"
+				},
+				{
+					"linkedService": {
+						"referenceName": "Ls_adls",
+						"type": "LinkedServiceReference"
+					},
+					"name": "source4"
+				},
+				{
+					"linkedService": {
+						"referenceName": "Ls_adls",
+						"type": "LinkedServiceReference"
+					},
+					"name": "source5"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "Ls_adls",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"linkedService": {
+						"referenceName": "Ls_adls",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sink2"
+				},
+				{
+					"linkedService": {
+						"referenceName": "Ls_adls",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sink3"
+				},
+				{
+					"linkedService": {
+						"referenceName": "Ls_adls",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sink4"
+				},
+				{
+					"linkedService": {
+						"referenceName": "Ls_adls",
+						"type": "LinkedServiceReference"
+					},
+					"name": "sink5"
+				}
+			],
+			"transformations": [
+				{
+					"name": "filter"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "aggregate2"
+				},
+				{
+					"name": "filter2"
+				},
+				{
+					"name": "aggregate3"
+				},
+				{
+					"name": "filter3"
+				},
+				{
+					"name": "aggregate4"
+				},
+				{
+					"name": "filter4"
+				},
+				{
+					"name": "aggregate5"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          account_id as integer,",
+				"          customer_id as integer,",
+				"          account_type as string,",
+				"          balance as float",
+				"     ),",
+				"     useSchema: false,",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'bronze',",
+				"     fileName: 'accounts.csv',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> source1",
+				"source(output(",
+				"          customer_id as integer,",
+				"          first_name as string,",
+				"          last_name as string,",
+				"          address as string,",
+				"          city as string,",
+				"          state as string,",
+				"          zip as string",
+				"     ),",
+				"     useSchema: false,",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'bronze',",
+				"     fileName: 'customers.csv',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> source2",
+				"source(output(",
+				"          payment_id as integer,",
+				"          loan_id as integer,",
+				"          payment_date as date,",
+				"          payment_amount as float",
+				"     ),",
+				"     useSchema: false,",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'bronze',",
+				"     fileName: 'loan_payments.csv',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> source3",
+				"source(output(",
+				"          loan_id as integer,",
+				"          customer_id as integer,",
+				"          loan_amount as float,",
+				"          interest_rate as float,",
+				"          loan_term as integer",
+				"     ),",
+				"     useSchema: false,",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'bronze',",
+				"     fileName: 'loans.csv',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> source4",
+				"source(output(",
+				"          transaction_id as integer,",
+				"          account_id as integer,",
+				"          transaction_date as date,",
+				"          transaction_amount as float,",
+				"          transaction_type as string",
+				"     ),",
+				"     useSchema: false,",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'bronze',",
+				"     fileName: 'transactions.csv',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> source5",
+				"source1 filter(!isNull(account_id) &&",
+				"!isNull(customer_id) &&",
+				"!isNull(balance) &&",
+				"!isNull(account_type) &&trim(account_type) != '') ~> filter",
+				"filter derive(account_type = trim(account_type),",
+				"          balance = toFloat(balance)) ~> derivedColumn1",
+				"derivedColumn1 aggregate(groupBy(account_id),",
+				"     customer_id = first(customer_id),",
+				"          account_type = first(account_type),",
+				"          balance = max(balance)) ~> aggregate1",
+				"source2 filter(!isNull(customer_id) &&",
+				"!isNull(first_name) && trim(first_name) != '' &&",
+				"!isNull(last_name) && trim(last_name) != '' &&",
+				"!isNull(address) && trim(address) != '' &&",
+				"!isNull(city) && trim(city) != '' &&",
+				"!isNull(state) && trim(state) != '' &&",
+				"!isNull(zip) && trim(zip) != '') ~> filter1",
+				"filter1 derive(first_name = trim(first_name),",
+				"          last_name = trim(last_name),",
+				"          address = trim(address),",
+				"          city = trim(city),",
+				"          state = trim(state),",
+				"          zip = trim(zip)) ~> derivedColumn2",
+				"derivedColumn2 aggregate(groupBy(customer_id),",
+				"     first_name = first(first_name),",
+				"          last_name = first(last_name),",
+				"          address = first(address),",
+				"          city = first(city),",
+				"          state = first(state),",
+				"          zip = first(zip)) ~> aggregate2",
+				"source3 filter(!isNull(payment_id) &&",
+				"!isNull(loan_id) &&",
+				"!isNull(payment_date) && ",
+				"!isNull(payment_amount)) ~> filter2",
+				"filter2 aggregate(groupBy(payment_id),",
+				"     loan_id = first(loan_id),",
+				"          payment_date = first(payment_date),",
+				"          payment_amount = max(payment_amount)) ~> aggregate3",
+				"source4 filter(!isNull(loan_id) &&",
+				"!isNull(customer_id) &&",
+				"!isNull(loan_amount) && ",
+				"!isNull(interest_rate) && ",
+				"!isNull(loan_term)) ~> filter3",
+				"filter3 aggregate(groupBy(loan_id),",
+				"     customer_id = first(customer_id),",
+				"          loan_amount = max(loan_amount),",
+				"          interest_rate = first(interest_rate),",
+				"          loan_term = first(loan_term)) ~> aggregate4",
+				"source5 filter(!isNull(transaction_id) &&",
+				"!isNull(account_id) &&",
+				"!isNull(transaction_date) && ",
+				"!isNull(transaction_amount)  &&",
+				"!isNull(transaction_type) && trim(transaction_type) != '') ~> filter4",
+				"filter4 aggregate(groupBy(transaction_id),",
+				"     account_id = first(account_id),",
+				"          transaction_date = first(transaction_date),",
+				"          transaction_amount = max(transaction_amount),",
+				"          transaction_type = first(transaction_type)) ~> aggregate5",
+				"aggregate1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delta',",
+				"     fileSystem: 'silver',",
+				"     folderPath: 'accountsdelta',",
+				"     mergeSchema: false,",
+				"     autoCompact: false,",
+				"     optimizedWrite: false,",
+				"     vacuum: 0,",
+				"     deletable: false,",
+				"     insertable: true,",
+				"     updateable: false,",
+				"     upsertable: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1",
+				"aggregate2 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delta',",
+				"     fileSystem: 'silver',",
+				"     folderPath: 'customersdelta',",
+				"     mergeSchema: false,",
+				"     autoCompact: false,",
+				"     optimizedWrite: false,",
+				"     vacuum: 0,",
+				"     deletable: false,",
+				"     insertable: true,",
+				"     updateable: false,",
+				"     upsertable: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink2",
+				"aggregate3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delta',",
+				"     fileSystem: 'silver',",
+				"     folderPath: 'loan_paymentsdelta',",
+				"     mergeSchema: false,",
+				"     autoCompact: false,",
+				"     optimizedWrite: false,",
+				"     vacuum: 0,",
+				"     deletable: false,",
+				"     insertable: true,",
+				"     updateable: false,",
+				"     upsertable: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink3",
+				"aggregate4 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delta',",
+				"     fileSystem: 'silver',",
+				"     folderPath: 'loansdelta',",
+				"     mergeSchema: false,",
+				"     autoCompact: false,",
+				"     optimizedWrite: false,",
+				"     vacuum: 0,",
+				"     deletable: false,",
+				"     insertable: true,",
+				"     updateable: false,",
+				"     upsertable: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink4",
+				"aggregate5 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delta',",
+				"     fileSystem: 'silver',",
+				"     folderPath: 'transactionsdelta',",
+				"     mergeSchema: false,",
+				"     autoCompact: false,",
+				"     optimizedWrite: false,",
+				"     vacuum: 0,",
+				"     deletable: false,",
+				"     insertable: true,",
+				"     updateable: false,",
+				"     upsertable: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink5"
+			]
+		}
+	}
+}

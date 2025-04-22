@@ -1,0 +1,9 @@
+{
+	"name": "dftestdrusya",
+	"location": "canadacentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "81db6253-47a2-422c-81f0-e05814bd276d",
+		"tenantId": "e9477337-8a82-46d5-adc2-b7f6fcbd858d"
+	}
+}

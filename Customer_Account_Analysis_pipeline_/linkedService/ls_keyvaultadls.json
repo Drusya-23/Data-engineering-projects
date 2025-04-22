@@ -1,0 +1,11 @@
+{
+	"name": "ls_keyvaultadls",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://keyvaultdrusyanew.vault.azure.net/"
+		}
+	}
+}
