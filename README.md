@@ -1,2 +1,2 @@
 # Data-engineering-projects
-Here I am posting my data engineering project works that I have done to strengthen my knowledge.
+This project aims in migrating datafactory pipeline to azure synapse analytics using the json script and aslo migrating databricks notebooks to fabric notebooks using the export import options in the notebook. This project gives an idea of how to migrate pipelines and notebooks. For achieving this I have done some demo activities and scripts which I have also added in the report. The report of this project explains the step by step precedure of the project.
