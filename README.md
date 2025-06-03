@@ -1,2 +1,2 @@
-# Data-engineering-projects
-Here I am posting my data engineering project works that I have done to strengthen my knowledge.
+# Data-engineering-project
+In this project I have 9 csv files with different data regarding a business. Initially I load all my files into the adls bronze container which is my bronze layer. My next aim is to clean the data using dataflows in Azure synapse. For that I created tables in Azure SQL database as my sink is Azure SQL database. Using the data flows I load my cleaned data into Azure SQL DB. Then after successfully loaded the data I created some views for business analytics on top of the tables. With the help of power BI nad Fabric I published the report visualizations.The step by step process and screenshots of steps, scripts I have used are clearly mentioned in my report which I have attached seperately.
