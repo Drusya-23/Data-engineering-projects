@@ -1,0 +1,15 @@
+{
+	"name": "project1-databricks",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2b57dadf-5f46-46d6-ae84-29afcf5f5021",
+		"tenantId": "43c82774-d0ac-41eb-838b-c8d70197fb1f"
+	}
+}

@@ -1,0 +1,36 @@
+{
+	"name": "ds_target",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AzureSQL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "employee_no",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "name",
+				"type": "varchar"
+			},
+			{
+				"name": "salary",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "modified_date",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Employee_Target"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
